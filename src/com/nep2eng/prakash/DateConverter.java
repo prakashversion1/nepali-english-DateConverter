@@ -2,6 +2,8 @@ package com.nep2eng.prakash;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DateConverter {
 
@@ -129,8 +131,27 @@ public class DateConverter {
 		}
 	}
 
-	public static void main(String[] args) {
-		System.out.println(engToNep(2013, 12, 12));
-		System.out.println(nepToEng(2070, 8, 25));
+	/*
+	 * This meathod gives back a list of start end english date for a given
+	 * nepali month and year
+	 */
+	public static Map<String, String> getNepMonthRange(int mm, int yyyy) {
+		Map<String, String> startEndDate = new HashMap<String, String>();
+		// Gives start nepali date for the month
+		int startnepDD = 1;
+		int startnepMM = mm;
+		int startnepYY = yyyy;
+
+		// Gives end of the month constants for the month mm
+
+		int endnepDD = Constants.getEndofMonths().get(yyyy)[mm];
+		int endnepMM = mm;
+		int endnepYY = yyyy;
+
+		String startEngDate = nepToEng(startnepYY, startnepMM, startnepDD);
+		String endEngDate = nepToEng(endnepYY, endnepMM, endnepDD);
+		startEndDate.put("StartDate", startEngDate);
+		startEndDate.put("EndDate", endEngDate);
+		return startEndDate;
 	}
 }
